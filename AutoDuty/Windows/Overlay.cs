@@ -92,7 +92,7 @@ public unsafe class Overlay : Window
                 }
 
                 if (ImGui.IsItemHovered())
-                    hideText = "Hide";
+                    hideText = "隐藏";
                 else
                     hideText = "";
 
@@ -116,7 +116,7 @@ public unsafe class Overlay : Window
                     Plugin.Configuration.Save();
                 }
 
-                hideTextAction = ImGui.IsItemHovered() ? "Hide" : "";
+                hideTextAction = ImGui.IsItemHovered() ? "隐藏" : "";
 
                 ImGui.SameLine(0, 5);
                 ImGui.TextColored(new Vector4(0, 255f, 0, 1), Plugin.Action.Length > 40 ? Plugin.Action[..37] + "..." : Plugin.Action);

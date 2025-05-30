@@ -440,7 +440,7 @@ public static class ConfigTab
         ImGui.Spacing();
         ImGui.Separator();
         ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
-        var overlayHeader = ImGui.Selectable("Window & Overlay Settings", overlayHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
+        var overlayHeader = ImGui.Selectable("窗口与悬浮窗设定", overlayHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
         ImGui.PopStyleVar();      
         if (ImGui.IsItemHovered())
             ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
@@ -449,25 +449,25 @@ public static class ConfigTab
 
         if (overlayHeaderSelected == true)
         {
-            if (ImGui.Checkbox("Show Overlay", ref Configuration.showOverlay))
+            if (ImGui.Checkbox("显示悬浮窗", ref Configuration.showOverlay))
             {
                 Configuration.ShowOverlay = Configuration.showOverlay;
                 Configuration.Save();
             }
-            ImGuiComponents.HelpMarker("Note that the quickaction buttons (TurnIn/Desynth/etc) require their respective configs to be enabled!\nOr Override Overlay Buttons to be Enabled");
+            ImGuiComponents.HelpMarker("请注意，快速操作按钮（军票/分解/等）需要启用各自的配置！\n或启用覆盖悬浮窗按钮的选项。");
             if (Configuration.ShowOverlay)
             {
                 ImGui.Indent();
                 ImGui.Columns(2, "##OverlayColumns", false);
 
                 //ImGui.SameLine(0, 53);
-                if (ImGui.Checkbox("Hide When Stopped", ref Configuration.hideOverlayWhenStopped))
+                if (ImGui.Checkbox("停止时隐藏", ref Configuration.hideOverlayWhenStopped))
                 {
                     Configuration.HideOverlayWhenStopped = Configuration.hideOverlayWhenStopped;
                     Configuration.Save();
                 }
                 ImGui.NextColumn();
-                if (ImGui.Checkbox("Lock Overlay", ref Configuration.lockOverlay))
+                if (ImGui.Checkbox("锁定悬浮窗", ref Configuration.lockOverlay))
                 {
                     Configuration.LockOverlay = Configuration.lockOverlay;
                     Configuration.Save();
@@ -475,38 +475,38 @@ public static class ConfigTab
                 ImGui.NextColumn();
                 //ImGui.SameLine(0, 57);
                 
-                if (ImGui.Checkbox("Show Duty/Loops Text", ref Configuration.ShowDutyLoopText))
+                if (ImGui.Checkbox("显示副本与运行次数", ref Configuration.ShowDutyLoopText))
                     Configuration.Save();
                 ImGui.NextColumn();
-                if (ImGui.Checkbox("Use Transparent BG", ref Configuration.overlayNoBG))
+                if (ImGui.Checkbox("使用透明背景", ref Configuration.overlayNoBG))
                 {
                     Configuration.OverlayNoBG = Configuration.overlayNoBG;
                     Configuration.Save();
                 }
                 ImGui.NextColumn();
-                if (ImGui.Checkbox("Override Overlay Buttons", ref Configuration.OverrideOverlayButtons))
+                if (ImGui.Checkbox("覆盖悬浮窗按钮", ref Configuration.OverrideOverlayButtons))
                     Configuration.Save();
-                ImGuiComponents.HelpMarker("Overlay buttons by default are enabled if their config is enabled\nThis will allow you to chose which buttons are enabled");
+                ImGuiComponents.HelpMarker("默认情况下，悬浮窗按钮会在其配置启用时自动启用\n此选项将允许您选择启用哪些按钮");
                 ImGui.NextColumn();
-                if (ImGui.Checkbox("Show AD Action Text", ref Configuration.ShowActionText))
+                if (ImGui.Checkbox("显示运行状况", ref Configuration.ShowActionText))
                     Configuration.Save();
                 if (Configuration.OverrideOverlayButtons)
                 {
                     ImGui.Indent();
                     ImGui.Columns(3, "##OverlayButtonColumns", false);
-                    if (ImGui.Checkbox("Goto", ref Configuration.GotoButton))
+                    if (ImGui.Checkbox("前往", ref Configuration.GotoButton))
                         Configuration.Save();
-                    if (ImGui.Checkbox("Turnin", ref Configuration.TurninButton))
-                        Configuration.Save();
-                    ImGui.NextColumn();
-                    if (ImGui.Checkbox("Desynth", ref Configuration.DesynthButton))
-                        Configuration.Save();
-                    if (ImGui.Checkbox("Extract", ref Configuration.ExtractButton))
+                    if (ImGui.Checkbox("军票", ref Configuration.TurninButton))
                         Configuration.Save();
                     ImGui.NextColumn();
-                    if (ImGui.Checkbox("Repair", ref Configuration.RepairButton))
+                    if (ImGui.Checkbox("分解", ref Configuration.DesynthButton))
                         Configuration.Save();
-                    if (ImGui.Checkbox("Equip", ref Configuration.EquipButton))
+                    if (ImGui.Checkbox("精炼", ref Configuration.ExtractButton))
+                        Configuration.Save();
+                    ImGui.NextColumn();
+                    if (ImGui.Checkbox("修理", ref Configuration.RepairButton))
+                        Configuration.Save();
+                    if (ImGui.Checkbox("装备", ref Configuration.EquipButton))
                         Configuration.Save();
                     if (ImGui.Checkbox("Coffer", ref Configuration.CofferButton))
                         Configuration.Save();
@@ -516,10 +516,10 @@ public static class ConfigTab
                 ImGui.Unindent();
             }
             ImGui.Columns(1);
-            if (ImGui.Checkbox("Show Main Window on Startup", ref Configuration.ShowMainWindowOnStartup))
+            if (ImGui.Checkbox("启动时显示主窗口", ref Configuration.ShowMainWindowOnStartup))
                 Configuration.Save();
             ImGui.SameLine();
-            if (ImGui.Checkbox("Slider Inputs", ref Configuration.UseSliderInputs))
+            if (ImGui.Checkbox("滑块输入", ref Configuration.UseSliderInputs))
                 Configuration.Save();
             
         }
@@ -529,7 +529,7 @@ public static class ConfigTab
             ImGui.Separator();
             ImGui.Spacing();
             ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
-            var devHeader = ImGui.Selectable("Dev Settings", devHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
+            var devHeader = ImGui.Selectable("开发选项", devHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
             ImGui.PopStyleVar();
             if (ImGui.IsItemHovered())
                 ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
@@ -538,10 +538,10 @@ public static class ConfigTab
 
             if (devHeaderSelected)
             {
-                if (ImGui.Checkbox("Update Paths on startup", ref Configuration.updatePathsOnStartup))
+                if (ImGui.Checkbox("启动时更新配置", ref Configuration.updatePathsOnStartup))
                     Configuration.Save();
 
-                if (ImGui.Button("Print mod list")) 
+                if (ImGui.Button("打印模块列表")) 
                     Svc.Log.Info(string.Join("\n", PluginInterface.InstalledPlugins.Where(pl => pl.IsLoaded).GroupBy(pl => pl.Manifest.InstalledFromUrl).OrderByDescending(g => g.Count()).Select(g => g.Key+"\n\t"+string.Join("\n\t", g.Select(pl => pl.Name)))));
 
                 if (ImGui.CollapsingHeader("Available Duty Support"))//ImGui.Button("check duty support?"))
@@ -569,7 +569,7 @@ public static class ConfigTab
         ImGui.Spacing();
         ImGui.Separator();
         ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
-        var dutyConfigHeader = ImGui.Selectable("Duty Config Settings", dutyConfigHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
+        var dutyConfigHeader = ImGui.Selectable("副本配置设定", dutyConfigHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
         ImGui.PopStyleVar();
         if (ImGui.IsItemHovered())
             ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
@@ -579,17 +579,17 @@ public static class ConfigTab
         if (dutyConfigHeaderSelected == true)
         {
             ImGui.Columns(2);
-            if (ImGui.Checkbox("Auto Leave Duty in last loop", ref Configuration.AutoExitDuty))
+            if (ImGui.Checkbox("自动退出副本", ref Configuration.AutoExitDuty))
                 Configuration.Save();
-            ImGuiComponents.HelpMarker("Will automatically exit the dungeon upon completion of the path.");
+            ImGuiComponents.HelpMarker("将在完成路径后自动退出副本。");
             ImGui.NextColumn();
-            if (ImGui.Checkbox("Only leave dungeon if duty completed", ref Configuration.OnlyExitWhenDutyDone))
+            if (ImGui.Checkbox("只在完成任务后退出副本", ref Configuration.OnlyExitWhenDutyDone))
                 Configuration.Save();
-            ImGuiComponents.HelpMarker("Blocks leaving dungeon before duty is completed");
+            ImGuiComponents.HelpMarker("在完成任务前阻止离开副本");
             ImGui.Columns(1);
-            if (ImGui.Checkbox("Auto Manage Rotation Plugin State", ref Configuration.AutoManageRotationPluginState))
+            if (ImGui.Checkbox("自动管理循环插件状态", ref Configuration.AutoManageRotationPluginState))
                 Configuration.Save();
-            ImGuiComponents.HelpMarker("Autoduty will enable the Rotation Plugin at the start of each duty\n*Only if using Wrath Combo, Rotation Solver or BossMod AutoRotation\n**AutoDuty will try to use them in that order");
+            ImGuiComponents.HelpMarker("Autoduty 会在每个任务开始时启用循环插件\n*仅在使用 Wrath Combo、 Rotation Solver 或 BossMod AutoRotation 时生效\n**AutoDuty 会自动确定您正在使用的插件");
 
             if (Configuration.AutoManageRotationPluginState)
             {
@@ -597,7 +597,7 @@ public static class ConfigTab
                 {
                     ImGui.Indent();
                     ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
-                    var wrathSettingHeader = ImGui.Selectable("> Wrath Combo Config Options <", wrathSettingHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
+                    var wrathSettingHeader = ImGui.Selectable("> Wrath Combo 配置选项 <", wrathSettingHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
                     ImGui.PopStyleVar();
                     if (ImGui.IsItemHovered())
                         ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
@@ -612,7 +612,7 @@ public static class ConfigTab
                             Configuration.Wrath_AutoSetupJobs = wrath_AutoSetupJobs;
                             Configuration.Save();
                         }
-                        ImGuiComponents.HelpMarker("If this is not enabled and a job is not setup in Wrath Combo, AD will instead use RSR or bm AutoRotation");
+                        ImGuiComponents.HelpMarker("如果没有启用此功能并且在 Wrath Combo 中没有设置作业，AD 将改为使用 RSR 或 bm 自动循环。");
 
                         ImGui.AlignTextToFramePadding();
                         ImGui.Text("Targeting | Tank: ");
@@ -657,9 +657,9 @@ public static class ConfigTab
                 }
             }
 
-            if (ImGui.Checkbox("Auto Manage BossMod AI Settings", ref Configuration.autoManageBossModAISettings))
+            if (ImGui.Checkbox("自动管理 BossMod AI 设置", ref Configuration.autoManageBossModAISettings))
                 Configuration.Save();
-            ImGuiComponents.HelpMarker("Autoduty will enable BMAI and any options you configure at the start of each duty.");
+            ImGuiComponents.HelpMarker("Autoduty 会在每个任务开始时启用 BMAI 及您配置的选项");
 
             if (Configuration.autoManageBossModAISettings)
             {
@@ -670,7 +670,7 @@ public static class ConfigTab
                 var positionalRoleBased = Configuration.PositionalRoleBased;
                 ImGui.Indent();
                 ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
-                var bmaiSettingHeader = ImGui.Selectable("> BMAI Config Options <", bmaiSettingHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
+                var bmaiSettingHeader = ImGui.Selectable("> BMAI 配置选项 <", bmaiSettingHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
                 ImGui.PopStyleVar();
                 if (ImGui.IsItemHovered())
                     ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
@@ -679,26 +679,26 @@ public static class ConfigTab
             
                 if (bmaiSettingHeaderSelected == true)
                 {
-                    if (ImGui.Button("Update Presets"))
+                    if (ImGui.Button("更新预设"))
                     {
                         BossMod_IPCSubscriber.RefreshPreset("AutoDuty", Resources.AutoDutyPreset);
                         BossMod_IPCSubscriber.RefreshPreset("AutoDuty Passive", Resources.AutoDutyPassivePreset);
                     }
-                    if (ImGui.Checkbox("Follow During Combat", ref Configuration.FollowDuringCombat))
+                    if (ImGui.Checkbox("战斗中跟随", ref Configuration.FollowDuringCombat))
                         Configuration.Save();
-                    if (ImGui.Checkbox("Follow During Active BossModule", ref Configuration.FollowDuringActiveBossModule))
+                    if (ImGui.Checkbox("激活Boss模块时跟随", ref Configuration.FollowDuringActiveBossModule))
                         Configuration.Save();
-                    if (ImGui.Checkbox("Follow Out Of Combat (Not Recommended)", ref Configuration.FollowOutOfCombat))
+                    if (ImGui.Checkbox("非战斗中跟随 (不推荐)", ref Configuration.FollowOutOfCombat))
                         Configuration.Save();
-                    if (ImGui.Checkbox("Follow Target", ref Configuration.FollowTarget))
+                    if (ImGui.Checkbox("跟随目标", ref Configuration.FollowTarget))
                         Configuration.Save();
                     ImGui.Separator();
-                    if (ImGui.Checkbox("Follow Self", ref Configuration.followSelf))
+                    if (ImGui.Checkbox("跟随自身", ref Configuration.followSelf))
                     {
                         Configuration.FollowSelf = Configuration.followSelf;
                         Configuration.Save();
                     }
-                    if (ImGui.Checkbox("Follow Slot #", ref Configuration.followSlot))
+                    if (ImGui.Checkbox("跟随队伍位置 #", ref Configuration.followSlot))
                     {
                         Configuration.FollowSlot = Configuration.followSlot;
                         Configuration.Save();
@@ -714,7 +714,7 @@ public static class ConfigTab
                         }
                         ImGui.PopItemWidth();
                     }
-                    if (ImGui.Checkbox("Follow Role", ref Configuration.followRole))
+                    if (ImGui.Checkbox("跟随职能", ref Configuration.followRole))
                     {
                         Configuration.FollowRole = Configuration.followRole;
                         Configuration.Save();
@@ -740,7 +740,7 @@ public static class ConfigTab
                         }
                     }
                     ImGui.Separator();
-                    if (ImGui.Checkbox("Set Max Distance To Target Based on Player Role", ref Configuration.maxDistanceToTargetRoleBased))
+                    if (ImGui.Checkbox("根据职能设置到目标的最大距离", ref Configuration.maxDistanceToTargetRoleBased))
                     {
                         Configuration.MaxDistanceToTargetRoleBased = Configuration.maxDistanceToTargetRoleBased;
                         Configuration.Save();
@@ -748,12 +748,12 @@ public static class ConfigTab
                     using (ImRaii.Disabled(Configuration.MaxDistanceToTargetRoleBased))
                     {
                         ImGui.PushItemWidth(195);
-                        if (ImGui.SliderFloat("Max Distance To Target", ref Configuration.MaxDistanceToTargetFloat, 1, 30))
+                        if (ImGui.SliderFloat("到目标的最大距离", ref Configuration.MaxDistanceToTargetFloat, 1, 30))
                         {
                             Configuration.MaxDistanceToTargetFloat = Math.Clamp(Configuration.MaxDistanceToTargetFloat, 1, 30);
                             Configuration.Save();
                         }
-                        if (ImGui.SliderFloat("Max Distance To Target AoE", ref Configuration.MaxDistanceToTargetAoEFloat, 1, 10))
+                        if (ImGui.SliderFloat("到目标的最大距离(使用AOE时)", ref Configuration.MaxDistanceToTargetAoEFloat, 1, 10))
                         {
                             Configuration.MaxDistanceToTargetAoEFloat = Math.Clamp(Configuration.MaxDistanceToTargetAoEFloat, 1, 10);
                             Configuration.Save();
@@ -763,12 +763,12 @@ public static class ConfigTab
                     using (ImRaii.Disabled(!Configuration.MaxDistanceToTargetRoleBased))
                     {
                         ImGui.PushItemWidth(195);
-                        if (ImGui.SliderFloat("Max Distance To Target | Melee", ref Configuration.MaxDistanceToTargetRoleMelee, 1, 30))
+                        if (ImGui.SliderFloat("到目标的最大距离 | 近战", ref Configuration.MaxDistanceToTargetRoleMelee, 1, 30))
                         {
                             Configuration.MaxDistanceToTargetRoleMelee = Math.Clamp(Configuration.MaxDistanceToTargetRoleMelee, 1, 30);
                             Configuration.Save();
                         }
-                        if (ImGui.SliderFloat("Max Distance To Target | Ranged", ref Configuration.MaxDistanceToTargetRoleRanged, 1, 30))
+                        if (ImGui.SliderFloat("到目标的最大距离 | 远程", ref Configuration.MaxDistanceToTargetRoleRanged, 1, 30))
                         {
                             Configuration.MaxDistanceToTargetRoleRanged = Math.Clamp(Configuration.MaxDistanceToTargetRoleRanged, 1, 30);
                             Configuration.Save();
@@ -777,13 +777,13 @@ public static class ConfigTab
                     }
 
                     ImGui.PushItemWidth(195);
-                    if (ImGui.SliderFloat("Max Distance To Slot", ref Configuration.MaxDistanceToSlotFloat, 1, 30))
+                    if (ImGui.SliderFloat("跟随队伍位置的最大距离", ref Configuration.MaxDistanceToSlotFloat, 1, 30))
                     {
                         Configuration.MaxDistanceToSlotFloat = Math.Clamp(Configuration.MaxDistanceToSlotFloat, 1, 30);
                         Configuration.Save();
                     }
                     ImGui.PopItemWidth();
-                    if (ImGui.Checkbox("Set Positional Based on Player Role", ref Configuration.positionalRoleBased))
+                    if (ImGui.Checkbox("根据玩家职能设置身位", ref Configuration.positionalRoleBased))
                     {
                         Configuration.PositionalRoleBased = Configuration.positionalRoleBased;
                         Plugin.BMRoleChecks();
@@ -808,7 +808,7 @@ public static class ConfigTab
                             ImGui.EndPopup();
                         }
                     }
-                    if (ImGui.Button("Use Default BMAI Settings"))
+                    if (ImGui.Button("使用默认BMAI设置"))
                     {
                         Configuration.FollowDuringCombat = true;
                         Configuration.FollowDuringActiveBossModule = true;
@@ -821,23 +821,23 @@ public static class ConfigTab
                         Configuration.positionalRoleBased = true;
                         Configuration.Save();
                     }
-                    ImGuiComponents.HelpMarker("Clicking this will reset your BMAI config to the default and *recommended* settings for AD");
+                    ImGuiComponents.HelpMarker("点击此按钮将把您的 BMAI 配置重置为 AD 的默认推荐设置。");
 
                     ImGui.Separator();
                 }
                 ImGui.Unindent();
             }
-            if (ImGui.Checkbox("Auto Manage Vnav Align Camera", ref Configuration.AutoManageVnavAlignCamera))
+            if (ImGui.Checkbox("自动管理 Vnav 对齐相机设置", ref Configuration.AutoManageVnavAlignCamera))
                 Configuration.Save();
-            ImGuiComponents.HelpMarker("Autoduty will enable AlignCamera in VNav at the start of each duty, and disable it when done if it was not set.");
+            ImGuiComponents.HelpMarker("Autoduty 会在每个任务开始时启用 VNav 的 AlignCamera 功能，并在任务结束后禁用该功能（如果之前未设置）");
 
-            if (ImGui.Checkbox("Loot Treasure Coffers", ref Configuration.LootTreasure))
+            if (ImGui.Checkbox("开启宝箱", ref Configuration.LootTreasure))
                 Configuration.Save();
 
             if (Configuration.LootTreasure)
             {
                 ImGui.Indent();
-                ImGui.Text("Select Method: ");
+                ImGui.Text("选择模式: ");
                 ImGui.SameLine(0, 5);
                 ImGui.PushItemWidth(150 * ImGuiHelpers.GlobalScale);
                 if (ImGui.BeginCombo("##ConfigLootMethod", Configuration.LootMethodEnum.ToCustomString()))
@@ -855,24 +855,24 @@ public static class ConfigTab
                     }
                     ImGui.EndCombo();
                 }
-                ImGuiComponents.HelpMarker("RSR Toggles Not Yet Implemented");
+                ImGuiComponents.HelpMarker("RSR 切换功能尚未实现");
                 
                 using (ImRaii.Disabled(Configuration.LootMethodEnum != LootMethod.AutoDuty))
                 {
-                    if (ImGui.Checkbox("Loot Boss Treasure Only", ref Configuration.LootBossTreasureOnly))
+                    if (ImGui.Checkbox("仅开启BOSS宝箱", ref Configuration.LootBossTreasureOnly))
                         Configuration.Save();
                 }
                 ImGui.Unindent();
             }
-            ImGuiComponents.HelpMarker("AutoDuty will ignore all non-boss chests, and only loot boss chests. (Only works with AD Looting)");
+            ImGuiComponents.HelpMarker("AutoDuty 将忽略所有非Boss的宝箱，只开启Boss宝箱。（仅在使用 AD 拾取功能时有效）");
 
-            if (ImGui.InputInt("Minimum time before declared stuck (in ms)", ref Configuration.MinStuckTime))
+            if (ImGui.InputInt("认为卡住前的最短时间（毫秒）", ref Configuration.MinStuckTime))
             {
                 Configuration.MinStuckTime = Math.Max(250, Configuration.MinStuckTime);
                 Configuration.Save();
             }
 
-            if (ImGui.Checkbox("Rebuild Navmesh when stuck", ref Configuration.RebuildNavmeshOnStuck))
+            if (ImGui.Checkbox("当卡住时重新构建导航", ref Configuration.RebuildNavmeshOnStuck))
                 Configuration.Save();
 
             if (Configuration.RebuildNavmeshOnStuck)
@@ -887,7 +887,7 @@ public static class ConfigTab
             }
 
             ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
-            bool w2wSettingHeader = ImGui.Selectable($"> {PathIdentifiers.W2W} Config <", w2wSettingHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
+            bool w2wSettingHeader = ImGui.Selectable($"> {PathIdentifiers.W2W} 设置 <", w2wSettingHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
             ImGui.PopStyleVar();
             if (ImGui.IsItemHovered())
                 ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
@@ -906,13 +906,13 @@ public static class ConfigTab
                 ImGui.EndListBox();
             }
 
-            if (ImGui.Checkbox("Override Party Validation", ref Configuration.OverridePartyValidation))
+            if (ImGui.Checkbox("禁用队伍验证", ref Configuration.OverridePartyValidation))
                 Configuration.Save();
-            ImGuiComponents.HelpMarker("AutoDuty will ignore your party makeup when queueing for duties\nThis is for Multi-Boxing Only\n*AutoDuty is not recommended to be used with other players*");
+            ImGuiComponents.HelpMarker("AutoDuty 在排本时将忽略您的队伍配置\n此功能仅适用于多开场景\n*不建议与其他玩家游戏时使用 AutoDuty*");
 
 
             ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
-            var advModeHeader = ImGui.Selectable("Advanced Config Options", advModeHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
+            var advModeHeader = ImGui.Selectable("高级配置选项", advModeHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
             ImGui.PopStyleVar();
             if (ImGui.IsItemHovered())
                 ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
@@ -921,17 +921,17 @@ public static class ConfigTab
 
             if (advModeHeaderSelected == true)
             {
-                if (ImGui.Checkbox("Using Alternative Rotation Plugin", ref Configuration.UsingAlternativeRotationPlugin))
+                if (ImGui.Checkbox("使用替代的循环插件", ref Configuration.UsingAlternativeRotationPlugin))
                     Configuration.Save();
-                ImGuiComponents.HelpMarker("You are deciding to use a plugin other than Wrath Combo, Rotation Solver or BossMod AutoRotation.");
+                ImGuiComponents.HelpMarker("使用 Wrath Combo, Rotation Solver 或 BossMod AutoRotation以外的循环插件时勾选");
 
-                if (ImGui.Checkbox("Using Alternative Movement Plugin", ref Configuration.UsingAlternativeMovementPlugin))
+                if (ImGui.Checkbox("使用替代的移动插件", ref Configuration.UsingAlternativeMovementPlugin))
                     Configuration.Save();
-                ImGuiComponents.HelpMarker("You are deciding to use a plugin other than Vnavmesh.");
+                ImGuiComponents.HelpMarker("使用 Vnavmesh 以外的其他移动插件时勾选");
 
-                if (ImGui.Checkbox("Using Alternative Boss Plugin", ref Configuration.UsingAlternativeBossPlugin))
+                if (ImGui.Checkbox("使用替代的机制插件", ref Configuration.UsingAlternativeBossPlugin))
                     Configuration.Save();
-                ImGuiComponents.HelpMarker("You are deciding to use a plugin other than BossMod/BMR.");
+                ImGuiComponents.HelpMarker("使用 BossMod/BMR 以外的机制插件时勾选");
             }
         }
 
@@ -939,7 +939,7 @@ public static class ConfigTab
         ImGui.Spacing();
         ImGui.Separator();
         ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
-        var preLoopHeader = ImGui.Selectable("Pre-Loop Initialization Settings", preLoopHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
+        var preLoopHeader = ImGui.Selectable("循环前设置", preLoopHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
         ImGui.PopStyleVar();
         if (ImGui.IsItemHovered())
             ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
@@ -948,16 +948,16 @@ public static class ConfigTab
 
         if (preLoopHeaderSelected == true)
         {
-            if (ImGui.Checkbox("Enable###PreLoopEnable", ref Configuration.EnablePreLoopActions))
+            if (ImGui.Checkbox("开启###PreLoopEnable", ref Configuration.EnablePreLoopActions))
                 Configuration.Save();
 
             using (ImRaii.Disabled(!Configuration.EnablePreLoopActions))
             {
                 ImGui.Separator();
-                MakeCommands("Execute commands on start of all loops", 
+                MakeCommands("在循环开始时执行命令", 
                              ref Configuration.ExecuteCommandsPreLoop, ref Configuration.CustomCommandsPreLoop, ref preLoopCommand);
 
-                if (ImGui.Checkbox("Retire To ", ref Configuration.RetireMode))
+                if (ImGui.Checkbox("返回至", ref Configuration.RetireMode))
                     Configuration.Save();
 
                 using (ImRaii.Disabled(!Configuration.RetireMode))
@@ -978,13 +978,12 @@ public static class ConfigTab
                     }
                     if (Configuration.RetireMode && Configuration.RetireLocationEnum == RetireLocation.Personal_Home)
                     {
-                        if (ImGui.Button("Add Current Position"))
+                        if (ImGui.Button("添加当前位置"))
                         {
                             Configuration.PersonalHomeEntrancePath.Add(Player.Position);
                             Configuration.Save();
                         }
-                        ImGuiComponents.HelpMarker("For most houses where the door is a straight shot from teleport location this is not needed, in the rare situations where the door needs a path to get to it, you can create that path here, or if your door seems to be further away from the teleport location than your neighbors, simply goto your door and hit Add Current Position");
-
+                        ImGuiComponents.HelpMarker("对于大多数房屋，传送位置直接面对大门时无需设置路径；在少数情况下，如果大门需要路径才能到达，您可以在此创建路径。或者，如果您的大门似乎比邻居的传送位置更远，只需前往大门并点击‘添加当前位置’即可。");
                         if (!ImGui.BeginListBox("##PersonalHomeVector3List", new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, (ImGui.GetTextLineHeightWithSpacing() * Configuration.PersonalHomeEntrancePath.Count) + 5))) return;
 
                         var removeItem = false;
@@ -1011,12 +1010,12 @@ public static class ConfigTab
                     }
                     if (Configuration.RetireMode && Configuration.RetireLocationEnum == RetireLocation.FC_Estate)
                     {
-                        if (ImGui.Button("Add Current Position"))
+                        if (ImGui.Button("添加当前位置"))
                         {
                             Configuration.FCEstateEntrancePath.Add(Player.Position);
                             Configuration.Save();
                         }
-                        ImGuiComponents.HelpMarker("For most houses where the door is a straight shot from teleport location this is not needed, in the rare situations where the door needs a path to get to it, you can create that path here, or if your door seems to be further away from the teleport location than your neighbors, simply goto your door and hit Add Current Position");
+                        ImGuiComponents.HelpMarker("对于大多数房屋，传送位置直接面对大门时无需设置路径；在少数情况下，如果大门需要路径才能到达，您可以在此创建路径。或者，如果您的大门似乎比邻居的传送位置更远，只需前往大门并点击‘添加当前位置’即可。");
 
                         if (!ImGui.BeginListBox("##FCEstateVector3List", new System.Numerics.Vector2(ImGui.GetContentRegionAvail().X, (ImGui.GetTextLineHeightWithSpacing() * Configuration.FCEstateEntrancePath.Count) + 5))) return;
 
@@ -1040,10 +1039,10 @@ public static class ConfigTab
                         ImGui.EndListBox();
                     }
                 }
-                if (ImGui.Checkbox("Auto Equip Recommended Gear", ref Configuration.AutoEquipRecommendedGear))
+                if (ImGui.Checkbox("自动装备最强装备", ref Configuration.AutoEquipRecommendedGear))
                     Configuration.Save();
 
-                ImGuiComponents.HelpMarker("Uses Gear from Armory Chest Only");
+                ImGuiComponents.HelpMarker("仅使用兵装库中的装备");
 
 
                 if (Configuration.AutoEquipRecommendedGear)
@@ -1051,7 +1050,7 @@ public static class ConfigTab
                     ImGui.Indent();
                     using (ImRaii.Disabled(!Gearsetter_IPCSubscriber.IsEnabled))
                     {
-                        if (ImGui.Checkbox("Consider items outside of armoury chest", ref Configuration.AutoEquipRecommendedGearGearsetter))
+                        if (ImGui.Checkbox("考虑兵装库以外的物品", ref Configuration.AutoEquipRecommendedGearGearsetter))
                             Configuration.Save();
                     }
 
@@ -1063,8 +1062,8 @@ public static class ConfigTab
                             Configuration.Save();
                         }
 
-                        ImGui.Text("* Items outside the armoury chest requires Gearsetter plugin");
-                        ImGui.Text("Get @ ");
+                        ImGui.Text("* 兵装库以外的物品需要 Gearsetter 插件。");
+                        ImGui.Text("获取 @ ");
                         ImGui.SameLine(0, 0);
                         ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://plugins.carvel.li");
                     }
@@ -1072,31 +1071,31 @@ public static class ConfigTab
                     ImGui.Unindent();
                 }
 
-                if (ImGui.Checkbox("Auto Repair", ref Configuration.AutoRepair))
+                if (ImGui.Checkbox("自动修理", ref Configuration.AutoRepair))
                     Configuration.Save();
 
                 if (Configuration.AutoRepair)
                 {
                     ImGui.SameLine();
 
-                    if (ImGui.RadioButton("Self", Configuration.AutoRepairSelf))
+                    if (ImGui.RadioButton("自己", Configuration.AutoRepairSelf))
                     {
                         Configuration.AutoRepairSelf = true;
                         Configuration.Save();
                     }
                     ImGui.SameLine();
-                    ImGuiComponents.HelpMarker("Will use DarkMatter to Self Repair (Requires Leveled Crafters!)");
+                    ImGuiComponents.HelpMarker("使用暗物质进行修理（需要已升级的工匠职业！）");
                     ImGui.SameLine();
 
-                    if (ImGui.RadioButton("CityNpc", !Configuration.AutoRepairSelf))
+                    if (ImGui.RadioButton("主城NPC", !Configuration.AutoRepairSelf))
                     {
                         Configuration.AutoRepairSelf = false;
                         Configuration.Save();
                     }
                     ImGui.SameLine();
-                    ImGuiComponents.HelpMarker("Will use preferred repair npc to repair.");
+                    ImGuiComponents.HelpMarker("使用首选修理NPC进行修理");
                     ImGui.Indent();
-                    ImGui.Text("Trigger @");
+                    ImGui.Text("修理阈值 @");
                     ImGui.SameLine();
                     ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X);
                     if (ImGui.SliderInt("##Repair@", ref Configuration.AutoRepairPct, 0, 99, "%d%%"))
@@ -1107,8 +1106,8 @@ public static class ConfigTab
                     ImGui.PopItemWidth();
                     if (!Configuration.AutoRepairSelf)
                     {
-                        ImGui.Text("Preferred Repair NPC: ");
-                        ImGuiComponents.HelpMarker("It's a good idea to match the Repair NPC with Summoning Bell and if possible Retire Location");
+                        ImGui.Text("首选修理NPC: ");
+                        ImGuiComponents.HelpMarker("建议将修理NPC，雇员铃，以及（如果可能）返回位置匹配起来。");
                         ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X);
                         if (ImGui.BeginCombo("##PreferredRepair",
                                              Configuration.PreferredRepairNPC != null ?
@@ -1149,18 +1148,18 @@ public static class ConfigTab
 
                 ImGui.Columns(3);
 
-                if (ImGui.Checkbox("Auto Consume", ref Configuration.AutoConsume))
+                if (ImGui.Checkbox("自动使用道具", ref Configuration.AutoConsume))
                     Configuration.Save();
 
-                ImGuiComponents.HelpMarker("AutoDuty will consume these items on run and between each loop (if status does not exist)");
+                ImGuiComponents.HelpMarker("AutoDuty 会在运行和每次循环之间消耗这些物品（如果状态不存在）");
                 if (Configuration.AutoConsume)
                 {
                     //ImGui.SameLine(0, 5);
                     ImGui.NextColumn();
-                    if (ImGui.Checkbox("Ignore Status", ref Configuration.AutoConsumeIgnoreStatus))
+                    if (ImGui.Checkbox("忽略状态", ref Configuration.AutoConsumeIgnoreStatus))
                         Configuration.Save();
 
-                    ImGuiComponents.HelpMarker("AutoDuty will consume these items on run and between each loop every time (even if status does exists)");
+                    ImGuiComponents.HelpMarker("AutoDuty 会在运行和每次循环之间每次都消耗这些物品（即使状态已存在）");
                     ImGui.NextColumn();
                     //ImGui.SameLine(0, 5);
                     
@@ -1168,12 +1167,12 @@ public static class ConfigTab
 
                     using (ImRaii.Disabled(Configuration.AutoConsumeIgnoreStatus))
                     {
-                        if (ImGui.InputInt("Min time remaining", ref Configuration.AutoConsumeTime))
+                        if (ImGui.InputInt("最少剩余时间", ref Configuration.AutoConsumeTime))
                         {
                             Configuration.AutoConsumeTime = Math.Clamp(Configuration.AutoConsumeTime, 0, 59);
                             Configuration.Save();
                         }
-                        ImGuiComponents.HelpMarker("If the status has less than this amount of time remaining (in minutes), it will consume these items");
+                        ImGuiComponents.HelpMarker("如果状态剩余时间少于这个时间（以分钟为单位），将消耗这些物品");
                     }
 
                     ImGui.PopItemWidth();
@@ -1181,7 +1180,7 @@ public static class ConfigTab
                     ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X - 115);
                     if (ImGui.BeginCombo("##SelectAutoConsumeItem", consumableItemsSelectedItem.Name))
                     {
-                        ImGui.InputTextWithHint("Item Name", "Start typing item name to search", ref consumableItemsItemNameInput, 1000);
+                        ImGui.InputTextWithHint("道具名称", "输入物品名称以进行搜索", ref consumableItemsItemNameInput, 1000);
                         foreach (var item in ConsumableItems.Where(x => x.Name.Contains(consumableItemsItemNameInput, StringComparison.InvariantCultureIgnoreCase))!)
                         {
                             if (ImGui.Selectable($"{item.Name}"))
@@ -1196,7 +1195,7 @@ public static class ConfigTab
                     ImGui.SameLine(0, 5);
                     using (ImRaii.Disabled(consumableItemsSelectedItem == null))
                     {
-                        if (ImGui.Button("Add Item"))
+                        if (ImGui.Button("添加道具"))
                         {
                             if (Configuration.AutoConsumeItemsList.Any(x => x.Key == consumableItemsSelectedItem!.StatusId))
                                 Configuration.AutoConsumeItemsList.RemoveAll(x => x.Key == consumableItemsSelectedItem!.StatusId);
@@ -1232,7 +1231,7 @@ public static class ConfigTab
         ImGui.Spacing();
         ImGui.Separator();
         ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
-        var betweenLoopHeader = ImGui.Selectable("Between Loop Settings", betweenLoopHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
+        var betweenLoopHeader = ImGui.Selectable("循环间设置", betweenLoopHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
         ImGui.PopStyleVar();
         if (ImGui.IsItemHovered())
             ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
@@ -1243,55 +1242,55 @@ public static class ConfigTab
         {
             ImGui.Columns(2);
 
-            if (ImGui.Checkbox("Enable###BetweenLoopEnable", ref Configuration.EnableBetweenLoopActions))
+            if (ImGui.Checkbox("开启###BetweenLoopEnable", ref Configuration.EnableBetweenLoopActions))
                 Configuration.Save();
 
             using (ImRaii.Disabled(!Configuration.EnableBetweenLoopActions))
             {
                 ImGui.NextColumn();
 
-                if (ImGui.Checkbox("Run on last Loop###BetweenLoopEnableLastLoop", ref Configuration.ExecuteBetweenLoopActionLastLoop))
+                if (ImGui.Checkbox("在最终循环运行###BetweenLoopEnableLastLoop", ref Configuration.ExecuteBetweenLoopActionLastLoop))
                     Configuration.Save();
 
                 ImGui.Columns(1);
 
                 ImGui.Separator();
                 ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X - ImGui.CalcItemWidth());
-                if (ImGui.InputInt("(s) Wait time between loops", ref Configuration.WaitTimeBeforeAfterLoopActions))
+                if (ImGui.InputInt("(秒)循环间等待", ref Configuration.WaitTimeBeforeAfterLoopActions))
                 {
                     if (Configuration.WaitTimeBeforeAfterLoopActions < 0) Configuration.WaitTimeBeforeAfterLoopActions = 0;
                     Configuration.Save();
                 }
                 ImGui.PopItemWidth();
-                ImGuiComponents.HelpMarker("Will delay all AutoDuty between-loop Processes for X seconds.");
+                ImGuiComponents.HelpMarker("将在循环之间的所有 AutoDuty 进程延迟 X 秒");
                 ImGui.Separator();
 
-                MakeCommands("Execute commands in between of all loops",
+                MakeCommands("在所有循环之间执行命令",
                              ref Configuration.ExecuteCommandsBetweenLoop,    ref Configuration.CustomCommandsBetweenLoop, ref betweenLoopCommand);
 
-                if (ImGui.Checkbox("Auto Extract", ref Configuration.AutoExtract))
+                if (ImGui.Checkbox("自动精炼", ref Configuration.AutoExtract))
                     Configuration.Save();
 
                 if (Configuration.AutoExtract)
                 {
                     ImGui.SameLine(0, 10);
-                    if (ImGui.RadioButton("Equipped", !Configuration.autoExtractAll))
+                    if (ImGui.RadioButton("装备中", !Configuration.autoExtractAll))
                     {
                         Configuration.AutoExtractAll = false;
                         Configuration.Save();
                     }
                     ImGui.SameLine(0, 5);
-                    if (ImGui.RadioButton("All", Configuration.autoExtractAll))
+                    if (ImGui.RadioButton("所有", Configuration.autoExtractAll))
                     {
                         Configuration.AutoExtractAll = true;
                         Configuration.Save();
                     }
                 }
 
-                if (ImGui.Checkbox("Auto open gear coffers", ref Configuration.AutoOpenCoffers))
+                if (ImGui.Checkbox("自动打开装备箱", ref Configuration.AutoOpenCoffers))
                     Configuration.Save();
 
-                ImGuiComponents.HelpMarker("AutoDuty will open gear coffers (like paladin arms) between each loop");
+                ImGuiComponents.HelpMarker("AutoDuty将在每个循环之间开启装备箱（如骑士武器）");
 
                 ImGui.SameLine();
                 ImGui.TextColored(Configuration.AutoOpenCoffers ? GradientColor.Get(ImGuiHelper.ExperimentalColor, ImGuiHelper.ExperimentalColor2, 500) : ImGuiHelper.ExperimentalColor, "EXPERIMENTAL");
@@ -1300,7 +1299,7 @@ public static class ConfigTab
                     unsafe
                     {
                         ImGui.Indent();
-                        ImGui.Text("Open Coffers with Gearset: ");
+                        ImGui.Text("使用套装打开装备箱: ");
                         ImGui.AlignTextToFramePadding();
                         ImGui.SameLine();
 
@@ -1315,7 +1314,7 @@ public static class ConfigTab
 
                         if (ImGui.BeginCombo("##CofferGearsetSelection", Configuration.AutoOpenCoffersGearset != null ? module->GetGearset(Configuration.AutoOpenCoffersGearset.Value)->NameString : "Current Gearset"))
                         {
-                            if (ImGui.Selectable("Current Gearset"))
+                            if (ImGui.Selectable("当前套装"))
                             {
                                 Configuration.AutoOpenCoffersGearset = null;
                                 Configuration.Save();
@@ -1334,15 +1333,15 @@ public static class ConfigTab
                             ImGui.EndCombo();
                         }
 
-                        if (ImGui.Checkbox("Use Blacklist", ref Configuration.AutoOpenCoffersBlacklistUse))
+                        if (ImGui.Checkbox("使用黑名单", ref Configuration.AutoOpenCoffersBlacklistUse))
                             Configuration.Save();
 
-                        ImGuiComponents.HelpMarker("Option to disable some coffers from being opened automatically.");
+                        ImGuiComponents.HelpMarker("禁止自动打开某些装备箱");
                         if (Configuration.AutoOpenCoffersBlacklistUse)
                         {
-                            if (ImGui.BeginCombo("Select Coffer", autoOpenCoffersSelectedItem.Value))
+                            if (ImGui.BeginCombo("选择装备箱", autoOpenCoffersSelectedItem.Value))
                             {
-                                ImGui.InputTextWithHint("Coffer Name", "Start typing coffer name to search", ref autoOpenCoffersNameInput, 1000);
+                                ImGui.InputTextWithHint("装备箱名称", "开始输入装备箱名称以进行搜索", ref autoOpenCoffersNameInput, 1000);
                                 foreach (var item in Items.Where(x => CofferHelper.ValidCoffer(x.Value) && x.Value.Name.ToString().Contains(autoOpenCoffersNameInput, StringComparison.InvariantCultureIgnoreCase)))
                                 {
                                     if (ImGui.Selectable($"{item.Value.Name.ToString()}"))
@@ -1354,7 +1353,7 @@ public static class ConfigTab
                             ImGui.SameLine(0, 5);
                             using (ImRaii.Disabled(autoOpenCoffersSelectedItem.Value.IsNullOrEmpty()))
                             {
-                                if (ImGui.Button("Add Coffer"))
+                                if (ImGui.Button("添加装备箱"))
                                 {
                                     if (!Configuration.AutoOpenCoffersBlacklist.TryAdd(autoOpenCoffersSelectedItem.Key, autoOpenCoffersSelectedItem.Value))
                                     {
@@ -1386,7 +1385,7 @@ public static class ConfigTab
 
                 ImGui.Columns(2);
 
-                if (ImGui.Checkbox("Auto Desynth", ref Configuration.autoDesynth))
+                if (ImGui.Checkbox("自动分解", ref Configuration.autoDesynth))
                 {
                     Configuration.AutoDesynth = Configuration.autoDesynth;
                     Configuration.Save();
@@ -1395,7 +1394,7 @@ public static class ConfigTab
                 //ImGui.SameLine(0, 5);
                 using (ImRaii.Disabled(!Deliveroo_IPCSubscriber.IsEnabled))
                 {
-                    if (ImGui.Checkbox("Auto GC Turnin", ref Configuration.autoGCTurnin))
+                    if (ImGui.Checkbox("自动兑换军票", ref Configuration.autoGCTurnin))
                     {
                         Configuration.AutoGCTurnin = Configuration.autoGCTurnin;
                         Configuration.Save();
@@ -1409,7 +1408,7 @@ public static class ConfigTab
                         if (Configuration.AutoDesynth)
                         {
                             ImGui.Indent();
-                            if (ImGui.Checkbox("Only Skill Ups", ref Configuration.autoDesynthSkillUp))
+                            if (ImGui.Checkbox("仅分解可提升分解技能的装备", ref Configuration.autoDesynthSkillUp))
                             {
                                 Configuration.AutoDesynthSkillUp = Configuration.autoDesynthSkillUp;
                                 Configuration.Save();
@@ -1423,7 +1422,7 @@ public static class ConfigTab
                         ImGui.NextColumn();
 
                         ImGui.Indent();
-                        if (ImGui.Checkbox("Inventory Slots Left @", ref Configuration.AutoGCTurninSlotsLeftBool))
+                        if (ImGui.Checkbox("当背包空间小于 @", ref Configuration.AutoGCTurninSlotsLeftBool))
                             Configuration.Save();
                         ImGui.SameLine(0);
                         using (ImRaii.Disabled(!Configuration.AutoGCTurninSlotsLeftBool))
@@ -1449,7 +1448,7 @@ public static class ConfigTab
                             }
                             ImGui.PopItemWidth();
                         }
-                        if (ImGui.Checkbox("Use GC Aetheryte Ticket", ref Configuration.AutoGCTurninUseTicket)) 
+                        if (ImGui.Checkbox("使用军队传送票", ref Configuration.AutoGCTurninUseTicket)) 
                             Configuration.Save();
                         ImGui.Unindent();
                     }
@@ -1463,15 +1462,15 @@ public static class ConfigTab
                         Configuration.AutoGCTurnin = false;
                         Configuration.Save();
                     }
-                    ImGui.Text("* Auto GC Turnin Requires Deliveroo plugin");
-                    ImGui.Text("Get @ ");
+                    ImGui.Text("* 自动军票上交需要 Deliveroo 插件");
+                    ImGui.Text("获取 @ ");
                     ImGui.SameLine(0, 0);
-                    ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://plugins.carvel.li");
+                    ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://raw.githubusercontent.com/RedAsteroid/DalamudPlugins/main/pluginmaster.json");
                 }
 
                 using (ImRaii.Disabled(!AutoRetainer_IPCSubscriber.IsEnabled))
                 {
-                    if (ImGui.Checkbox("Enable AutoRetainer Integration", ref Configuration.EnableAutoRetainer))
+                    if (ImGui.Checkbox("启用 AutoRetainer 集成", ref Configuration.EnableAutoRetainer))
                         Configuration.Save();
                 }
                 if (Configuration.UnhideAM)
@@ -1490,8 +1489,8 @@ public static class ConfigTab
                 }
                 if (Configuration.EnableAutoRetainer || Configuration.AM)
                 {
-                    ImGui.Text("Preferred Summoning Bell Location: ");
-                    ImGuiComponents.HelpMarker("No matter what location is chosen, if there is a summoning bell in the location you are in when this is invoked it will go there instead");
+                    ImGui.Text("首选雇员铃位置: ");
+                    ImGuiComponents.HelpMarker("无论选择哪个位置，如果在触发时您所在的位置有雇员铃，它将优先前往该位置。");
                     if (ImGui.BeginCombo("##PreferredBell", Configuration.PreferredSummoningBellEnum.ToCustomString()))
                     {
                         foreach (SummoningBellLocations summoningBells in Enum.GetValues(typeof(SummoningBellLocations)))
@@ -1512,8 +1511,8 @@ public static class ConfigTab
                         Configuration.EnableAutoRetainer = false;
                         Configuration.Save();
                     }
-                    ImGui.Text("* AutoRetainer requires a plugin");
-                    ImGui.Text("Visit ");
+                    ImGui.Text("* AutoRetainer需要一个插件");
+                    ImGui.Text("访问 ");
                     ImGui.SameLine(0, 0);
                     ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://puni.sh/plugin/AutoRetainer");
                 }
@@ -1526,9 +1525,9 @@ public static class ConfigTab
                         Configuration.AM = false;
                         Configuration.Save();
                     }
-                    ImGui.TextWrapped("* AM Requires a plugin, Visit:");
+                    ImGui.TextWrapped("* AM 需要一个插件, 访问:");
                     ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://discord.gg/JzSxThjKnd");
-                    ImGui.TextWrapped("DO NOT DISCUSS THIS OPTION WITHIN THE PUNI.SH DISCORD, YOU HAVE BEEN WARNED!!!!!!!");
+                    ImGui.TextWrapped("请勿在PUNI.SH的Discord中讨论这个选项，你已经被警告了！！！！！！");
                 }
             }
         }
@@ -1537,7 +1536,7 @@ public static class ConfigTab
         ImGui.Spacing();
         ImGui.Separator();
         ImGui.PushStyleVar(ImGuiStyleVar.SelectableTextAlign, new Vector2(0.5f, 0.5f));
-        var terminationHeader = ImGui.Selectable("Loop Termination Settings", terminationHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
+        var terminationHeader = ImGui.Selectable("循环终止设置", terminationHeaderSelected, ImGuiSelectableFlags.DontClosePopups);
         ImGui.PopStyleVar();
         if (ImGui.IsItemHovered())
             ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
@@ -1545,14 +1544,14 @@ public static class ConfigTab
             terminationHeaderSelected = !terminationHeaderSelected;
         if (terminationHeaderSelected == true)
         {
-            if (ImGui.Checkbox("Enable###TerminationEnable", ref Configuration.EnableTerminationActions))
+            if (ImGui.Checkbox("开启###TerminationEnable", ref Configuration.EnableTerminationActions))
                 Configuration.Save();
 
             using (ImRaii.Disabled(!Configuration.EnableTerminationActions))
             {
                 ImGui.Separator();
 
-                if (ImGui.Checkbox("Stop Looping @ Level", ref Configuration.StopLevel))
+                if (ImGui.Checkbox("达到指定等级时停止", ref Configuration.StopLevel))
                     Configuration.Save();
 
                 if (Configuration.StopLevel)
@@ -1577,21 +1576,21 @@ public static class ConfigTab
                     }
                     ImGui.PopItemWidth();
                 }
-                ImGuiComponents.HelpMarker("Looping will stop when these conditions are reached, so long as an adequate number of loops have been allocated.");
-                if (ImGui.Checkbox("Stop When No Rested XP", ref Configuration.StopNoRestedXP))
+                ImGuiComponents.HelpMarker("当满足这些条件时，循环将停止");
+                if (ImGui.Checkbox("休息奖励经验耗尽时停止", ref Configuration.StopNoRestedXP))
                     Configuration.Save();
 
-                ImGuiComponents.HelpMarker("Looping will stop when these conditions are reached, so long as an adequate number of loops have been allocated.");
-                if (ImGui.Checkbox("Stop Looping When Reach Item Qty", ref Configuration.StopItemQty))
+                ImGuiComponents.HelpMarker("当满足这些条件时，循环将停止");
+                if (ImGui.Checkbox("道具到达指定数量时停止", ref Configuration.StopItemQty))
                     Configuration.Save();
 
-                ImGuiComponents.HelpMarker("Looping will stop when these conditions are reached, so long as an adequate number of loops have been allocated.");
+                ImGuiComponents.HelpMarker("当满足这些条件时，循环将停止");
                 if (Configuration.StopItemQty)
                 {
                     ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X - 125);
-                    if (ImGui.BeginCombo("Select Item", stopItemQtySelectedItem.Value))
+                    if (ImGui.BeginCombo("选择道具", stopItemQtySelectedItem.Value))
                     {
-                        ImGui.InputTextWithHint("Item Name", "Start typing item name to search", ref stopItemQtyItemNameInput, 1000);
+                        ImGui.InputTextWithHint("道具名称", "输入物品名称以进行搜索", ref stopItemQtyItemNameInput, 1000);
                         foreach (var item in Items.Where(x => x.Value.Name.ToString().Contains(stopItemQtyItemNameInput, StringComparison.InvariantCultureIgnoreCase))!)
                         {
                             if (ImGui.Selectable($"{item.Value.Name.ToString()}"))
@@ -1601,13 +1600,13 @@ public static class ConfigTab
                     }
                     ImGui.PopItemWidth();
                     ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X - 220);
-                    if (ImGui.InputInt("Quantity", ref Configuration.StopItemQtyInt))
+                    if (ImGui.InputInt("数量", ref Configuration.StopItemQtyInt))
                         Configuration.Save();
 
                     ImGui.SameLine(0, 5);
                     using (ImRaii.Disabled(stopItemQtySelectedItem.Value.IsNullOrEmpty()))
                     {
-                        if (ImGui.Button("Add Item"))
+                        if (ImGui.Button("添加道具"))
                         {
                             if (!Configuration.StopItemQtyItemDictionary.TryAdd(stopItemQtySelectedItem.Key, new(stopItemQtySelectedItem.Value, Configuration.StopItemQtyInt)))
                             {
@@ -1630,14 +1629,14 @@ public static class ConfigTab
                         }
                     }
                     ImGui.EndListBox();
-                    if (ImGui.Checkbox("Stop Looping Only When All Items Obtained", ref Configuration.StopItemAll))
+                    if (ImGui.Checkbox("仅在获得所有项目后停止循环", ref Configuration.StopItemAll))
                         Configuration.Save();
                 }
 
-                MakeCommands("Execute commands on termination of all loops",
+                MakeCommands("在所有循环终止时执行命令",
                              ref Configuration.ExecuteCommandsTermination,  ref Configuration.CustomCommandsTermination, ref terminationCommand);
 
-                if (ImGui.Checkbox("Play Sound on Completion of All Loops: ", ref Configuration.PlayEndSound)) //Heavily Inspired by ChatAlerts
+                if (ImGui.Checkbox("完成所有循环后播放声音： ", ref Configuration.PlayEndSound)) //Heavily Inspired by ChatAlerts
                         Configuration.Save();
                 if (Configuration.PlayEndSound)
                 {
@@ -1647,7 +1646,7 @@ public static class ConfigTab
                     DrawGameSound();
                 }
 
-                ImGui.Text("On Completion of All Loops: ");
+                ImGui.Text("在完成所有循环后： ");
                 ImGui.SameLine(0, 10);
                 ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X);
                 if (ImGui.BeginCombo("##ConfigTerminationMethod", Configuration.TerminationMethodEnum.ToCustomString()))
@@ -1667,7 +1666,7 @@ public static class ConfigTab
                 if (Configuration.TerminationMethodEnum is TerminationMode.Kill_Client or TerminationMode.Kill_PC or TerminationMode.Logout)
                 {
                     ImGui.Indent();
-                    if (ImGui.Checkbox("Keep Termination option after execution ", ref Configuration.TerminationKeepActive))
+                    if (ImGui.Checkbox("执行后保留终止选项 ", ref Configuration.TerminationKeepActive))
                         Configuration.Save();
                     ImGui.Unindent();
                 }
@@ -1679,13 +1678,13 @@ public static class ConfigTab
             if (ImGui.Checkbox($"{checkbox}{(execute ? ":" : string.Empty)} ", ref execute))
                 Configuration.Save();
 
-            ImGuiComponents.HelpMarker($"{checkbox}.\nFor example, /echo test");
+            ImGuiComponents.HelpMarker($"{checkbox}.\n例如, /echo 测试");
 
             if (execute)
             {
                 ImGui.Indent();
                 ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X - 185);
-                if (ImGui.InputTextWithHint($"##Commands{checkbox}", "enter command starting with /", ref curCommand, 500, ImGuiInputTextFlags.EnterReturnsTrue))
+                if (ImGui.InputTextWithHint($"##Commands{checkbox}", "输入以 / 开头的命令", ref curCommand, 500, ImGuiInputTextFlags.EnterReturnsTrue))
                 {
                     if (!curCommand.IsNullOrEmpty() && curCommand[0] == '/' && (ImGui.IsKeyDown(ImGuiKey.Enter) || ImGui.IsKeyDown(ImGuiKey.KeypadEnter)))
                     {
@@ -1699,7 +1698,7 @@ public static class ConfigTab
                 ImGui.SameLine(0, 5);
                 using (ImRaii.Disabled(curCommand.IsNullOrEmpty() || curCommand[0] != '/'))
                 {
-                    if (ImGui.Button("Add Command"))
+                    if (ImGui.Button("添加命令"))
                     {
                         commands.Add(curCommand);
                         Configuration.Save();
