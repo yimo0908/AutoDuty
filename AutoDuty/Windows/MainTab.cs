@@ -47,7 +47,7 @@ namespace AutoDuty.Windows
                 // Set the width of the search box to the calculated width
                 ImGui.SetNextItemWidth(inputMaxWidth);
                 
-                ImGui.InputTextWithHint("##search", "Search duties...", ref _searchText, inputMaxLength);
+                ImGui.InputTextWithHint("##search", "搜索副本...", ref _searchText, inputMaxLength);
 
                 // Apply filtering based on the search text
                 if (_searchText.Length > 0)
@@ -77,7 +77,7 @@ namespace AutoDuty.Windows
                                                !Plugin.Configuration.PathSelectionsByPath.ContainsKey(Plugin.CurrentTerritoryContent.TerritoryType) || 
                                                !(pathSelection = Plugin.Configuration.PathSelectionsByPath[Plugin.CurrentTerritoryContent.TerritoryType]).Any(kvp => kvp.Value.HasJob(Svc.ClientState.LocalPlayer.GetJob()))))
                         {
-                            if (ImGui.Button("Clear Saved Path"))
+                            if (ImGui.Button("清除已保存的路径"))
                             {
                                 foreach (KeyValuePair<string, JobWithRole> keyValuePair in pathSelection) 
                                     pathSelection[keyValuePair.Key] &= ~curJob;
@@ -205,7 +205,7 @@ namespace AutoDuty.Windows
                             if (!BossMod_IPCSubscriber.IsEnabled && !Plugin.Configuration.UsingAlternativeBossPlugin)
                                 ImGui.TextColored(new Vector4(255, 0, 0, 1), "AutoDuty 需要安装并加载 BossMod 插件以正确处理机制。请添加第三方仓库：\nhttps://raw.githubusercontent.com/44451516/ffxiv_bossmod/CN/pluginmaster.json");
                             if (!Wrath_IPCSubscriber.IsEnabled && !ReflectionHelper.RotationSolver_Reflection.RotationSolverEnabled && !BossMod_IPCSubscriber.IsEnabled && !Plugin.Configuration.UsingAlternativeRotationPlugin)
-                                ImGui.TextColored(new Vector4(255, 0, 0, 1), "AutoDuty 需要安装并加载一个循环插件（Rotation Solver Reborn 或 BossMod AutoRotation 均可)");
+                                ImGui.TextColored(new Vector4(255, 0, 0, 1), "AutoDuty 需要安装并加载一个循环插件（Wrath Combo 、 Rotation Solver Reborn 或 BossMod AutoRotation 均可)");
                         }
                         ImGui.EndListBox();
                     }
@@ -251,11 +251,11 @@ namespace AutoDuty.Windows
                     ImGui.TextColored(Plugin.Configuration.DutyModeEnum == DutyMode.None ? new Vector4(1, 0, 0, 1) : new Vector4(0, 1, 0, 1), "选择运行模式: ");
                     ImGui.SameLine(0);
                     ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X);
-                    if (ImGui.BeginCombo("##DutyModeEnum", Plugin.Configuration.DutyModeEnum.ToCustomString()))
+                    if (ImGui.BeginCombo("##DutyModeEnum", Plugin.Configuration.DutyModeEnum.GetDescription()))
                     {
                         foreach (DutyMode mode in Enum.GetValues(typeof(DutyMode)))
                         {
-                            if (ImGui.Selectable(mode.ToCustomString()))
+                            if (ImGui.Selectable(mode.GetDescription()))
                             {
                                 Plugin.Configuration.DutyModeEnum = mode;
                                 Plugin.Configuration.Save();
@@ -421,7 +421,7 @@ namespace AutoDuty.Windows
                             Plugin.Configuration.Save();
                         if (Plugin.Configuration.DutyModeEnum == DutyMode.Regular || Plugin.Configuration.DutyModeEnum == DutyMode.Trial || Plugin.Configuration.DutyModeEnum == DutyMode.Raid)
                         {
-                            if (ImGuiEx.CheckboxWrapped("Unsynced", ref Plugin.Configuration.Unsynced))
+                            if (ImGuiEx.CheckboxWrapped("解除限制", ref Plugin.Configuration.Unsynced))
                                 Plugin.Configuration.Save();
                         }
                     }
@@ -436,17 +436,17 @@ namespace AutoDuty.Windows
                             {
                                 if (Player.Job.GetCombatRole() == CombatRole.NonCombat || (Plugin.LevelingModeEnum == LevelingMode.Trust && ilvl < 370) || (Plugin.LevelingModeEnum == LevelingMode.Trust && Plugin.CurrentPlayerItemLevelandClassJob.Value != null && Plugin.CurrentPlayerItemLevelandClassJob.Value != Player.Job))
                                 {
-                                    Svc.Log.Debug($"You are on a non-compatible job: {Player.Job.GetCombatRole()}, or your doing trust and your iLvl({ilvl}) is below 370, or your iLvl has changed, Disabling Leveling Mode");
+                                    Svc.Log.Debug($"您正处于一个不兼容的职业: {Player.Job.GetCombatRole()}, 或者您正处于亲信模式但装等({ilvl}) 小于 370, 或您的装等已变更, 正在禁用升级模式");
                                     Plugin.LevelingModeEnum = LevelingMode.None;
                                 }
                                 else if (ilvl > 0 && ilvl != Plugin.CurrentPlayerItemLevelandClassJob.Key)
                                 {
-                                    Svc.Log.Debug($"Your iLvl has changed, Selecting new Duty.");
+                                    Svc.Log.Debug($"您的装等已更改，正在选择新任务。");
                                     Plugin.CurrentTerritoryContent = LevelingHelper.SelectHighestLevelingRelevantDuty(Plugin.LevelingModeEnum == LevelingMode.Trust);
                                 }
                                 else
                                 {
-                                    ImGuiEx.TextWrapped(new Vector4(0, 1, 0, 1), $"Leveling Mode: L{Player.Level} (i{ilvl})");
+                                    ImGuiEx.TextWrapped(new Vector4(0, 1, 0, 1), $"Leveling Mode: 等级{Player.Level} (装等{ilvl})");
                                     foreach (var item in LevelingHelper.LevelingDuties.Select((Value, Index) => (Value, Index)))
                                     {
                                         if (Plugin.Configuration.DutyModeEnum == DutyMode.Trust && !item.Value.DutyModes.HasFlag(DutyMode.Trust))

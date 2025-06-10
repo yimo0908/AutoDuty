@@ -1084,7 +1084,7 @@ public static class ConfigTab
                         Configuration.Save();
                     }
                     ImGui.SameLine();
-                    ImGuiComponents.HelpMarker("使用暗物质进行修理（需要已升级的工匠职业！）");
+                    ImGuiComponents.HelpMarker("使用暗物质进行修理（需要生产职业拥有足够的等级！）");
                     ImGui.SameLine();
 
                     if (ImGui.RadioButton("主城NPC", !Configuration.AutoRepairSelf))
@@ -1112,9 +1112,9 @@ public static class ConfigTab
                         if (ImGui.BeginCombo("##PreferredRepair",
                                              Configuration.PreferredRepairNPC != null ?
                                                  $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(Configuration.PreferredRepairNPC.Name.ToLowerInvariant())} ({Svc.Data.GetExcelSheet<TerritoryType>()?.GetRowOrDefault(Configuration.PreferredRepairNPC.TerritoryType)?.PlaceName.ValueNullable?.Name.ToString()})  ({MapHelper.ConvertWorldXZToMap(Configuration.PreferredRepairNPC.Position.ToVector2(), Svc.Data.GetExcelSheet<TerritoryType>().GetRow(Configuration.PreferredRepairNPC.TerritoryType).Map.Value!).X.ToString("0.0", CultureInfo.InvariantCulture)}, {MapHelper.ConvertWorldXZToMap(Configuration.PreferredRepairNPC.Position.ToVector2(), Svc.Data.GetExcelSheet<TerritoryType>().GetRow(Configuration.PreferredRepairNPC.TerritoryType).Map.Value).Y.ToString("0.0", CultureInfo.InvariantCulture)})" :
-                                                 "Grand Company Inn"))
+                                                 "初始主城旅馆"))
                         {
-                            if (ImGui.Selectable("Grand Company Inn"))
+                            if (ImGui.Selectable("初始主城旅馆"))
                             {
                                 Configuration.PreferredRepairNPC = null;
                                 Configuration.Save();
