@@ -519,7 +519,7 @@ namespace AutoDuty.Managers
 
         private bool BossCheck()
         {
-            if (((Plugin.BossObject?.IsDead ?? true) && !Svc.Condition[ConditionFlag.InCombat]) || !Svc.Condition[ConditionFlag.InCombat])
+            if (!Svc.Condition[ConditionFlag.InCombat])
                 return true;
 
             
@@ -571,6 +571,7 @@ namespace AutoDuty.Managers
             if (Plugin.BossObject == null)
                 _taskManager.Enqueue(() => (Plugin.BossObject = GetBossObject()) != null, "Boss-GetBossObject");
             _taskManager.Enqueue(() => Plugin.Action = $"Boss: {Plugin.BossObject?.Name.TextValue ?? ""}", "Boss-SetActionVar");
+            _taskManager.Enqueue(() => Svc.Targets.Target = Plugin.BossObject, "Boss-SetTarget");
             _taskManager.Enqueue(() => Svc.Condition[ConditionFlag.InCombat], "Boss-WaitInCombat");
             _taskManager.Enqueue(() => BossCheck(), int.MaxValue, "Boss-BossCheck");
             _taskManager.Enqueue(() => { Plugin.BossObject = null; }, "Boss-ClearBossObject");
