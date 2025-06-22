@@ -136,18 +136,28 @@ namespace AutoDuty.Data
         }
         public enum RetireLocation : int
         {
+            [Description("旅馆")]
             Inn = 0,
+            [Description("公寓")]
             Apartment = 1,
+            [Description("个人房屋")]
             Personal_Home = 2,
+            [Description("部队房屋")]
             FC_Estate = 3,
+            [Description("冒险者分队军营")]
             GC_Barracks = 4,
         }
         public enum TerminationMode : int
         {
+            [Description("什么都不做")]
             Do_Nothing = 0,
+            [Description("返回标题画面")]
             Logout = 1,
+            [Description("开启AutoRetainer")]
             Start_AR_Multi_Mode = 2,
+            [Description("关闭游戏")]
             Kill_Client = 3,
+            [Description("关闭电脑")]
             Kill_PC = 4
         }
         public enum Role : int
@@ -159,9 +169,13 @@ namespace AutoDuty.Data
         }
         public enum Positional : int
         {
+            [Description("任意")]
             Any = 0,
+            [Description("侧面")]
             Flank = 1,
+            [Description("背面")]
             Rear = 2,
+            [Description("正面")]
             Front = 3
         }
         public enum SummoningBellLocations : uint

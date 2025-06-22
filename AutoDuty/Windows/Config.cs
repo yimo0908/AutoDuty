@@ -1184,14 +1184,14 @@ public static class ConfigTab
                     using (ImRaii.Disabled(Configuration.positionalRoleBased))
                     {
                         ImGui.SameLine(0, 10);
-                        if (ImGui.Button(Configuration.PositionalEnum.ToCustomString()))
+                        if (ImGui.Button(Configuration.PositionalEnum.GetDescription()))
                             ImGui.OpenPopup("PositionalPopup");
             
                         if (ImGui.BeginPopup("PositionalPopup"))
                         {
                             foreach (Positional positional in Enum.GetValues(typeof(Positional)))
                             {
-                                if (ImGui.Selectable(positional.ToCustomString()))
+                                if (ImGui.Selectable(positional.GetDescription()))
                                 {
                                     Configuration.PositionalEnum = positional;
                                     Configuration.Save();
@@ -1372,11 +1372,11 @@ public static class ConfigTab
                 {
                     ImGui.SameLine(0, 5);
                     ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X);
-                    if (ImGui.BeginCombo("##RetireLocation", Configuration.RetireLocationEnum.ToCustomString()))
+                    if (ImGui.BeginCombo("##RetireLocation", Configuration.RetireLocationEnum.GetDescription()))
                     {
                         foreach (RetireLocation retireLocation in Enum.GetValues(typeof(RetireLocation)))
                         {
-                            if (ImGui.Selectable(retireLocation.ToCustomString()))
+                            if (ImGui.Selectable(retireLocation.GetDescription()))
                             {
                                 Configuration.RetireLocationEnum = retireLocation;
                                 Configuration.Save();
@@ -1579,7 +1579,7 @@ public static class ConfigTab
                     ImGui.Unindent();
                 }
 
-                if (ImGui.Checkbox("自动使用道具", ref Configuration.AutoConsume))
+                if (ImGui.Checkbox("自动使用物品", ref Configuration.AutoConsume))
                     Configuration.Save();
 
                 ImGuiComponents.HelpMarker("AutoDuty 会在运行和每次循环之间消耗这些物品（如果状态不存在）");
@@ -1614,7 +1614,7 @@ public static class ConfigTab
                     ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X - 115 * ImGuiHelpers.GlobalScale);
                     if (ImGui.BeginCombo("##SelectAutoConsumeItem", consumableItemsSelectedItem.Name))
                     {
-                        ImGui.InputTextWithHint("道具名称", "输入物品名称以进行搜索", ref consumableItemsItemNameInput, 1000);
+                        ImGui.InputTextWithHint("物品名称", "输入物品名称以进行搜索", ref consumableItemsItemNameInput, 1000);
                         foreach (var item in ConsumableItems.Where(x => x.Name.Contains(consumableItemsItemNameInput, StringComparison.InvariantCultureIgnoreCase))!)
                         {
                             if (ImGui.Selectable($"{item.Name}"))
@@ -1631,7 +1631,7 @@ public static class ConfigTab
                     ImGui.SameLine(0, 5);
                     using (ImRaii.Disabled(consumableItemsSelectedItem == null))
                     {
-                        if (ImGui.Button("添加道具"))
+                        if (ImGui.Button("添加物品"))
                         {
                             if (Configuration.AutoConsumeItemsList.Any(x => x.Key == consumableItemsSelectedItem!.StatusId))
                                 Configuration.AutoConsumeItemsList.RemoveAll(x => x.Key == consumableItemsSelectedItem!.StatusId);
@@ -1748,7 +1748,7 @@ public static class ConfigTab
                         }
 
 
-                        if (ImGui.BeginCombo("##CofferGearsetSelection", Configuration.AutoOpenCoffersGearset != null ? module->GetGearset(Configuration.AutoOpenCoffersGearset.Value)->NameString : "Current Gearset"))
+                        if (ImGui.BeginCombo("##CofferGearsetSelection", Configuration.AutoOpenCoffersGearset != null ? module->GetGearset(Configuration.AutoOpenCoffersGearset.Value)->NameString : "当前套装"))
                         {
                             if (ImGui.Selectable("当前套装"))
                             {
@@ -1942,16 +1942,16 @@ public static class ConfigTab
                     ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://raw.githubusercontent.com/RedAsteroid/DalamudPlugins/main/pluginmaster.json");
                 }
 
-                if(ImGui.Checkbox("Triple Triad", ref Configuration.TripleTriadEnabled))
+                if(ImGui.Checkbox("九宫幻卡", ref Configuration.TripleTriadEnabled))
                     Configuration.Save();
                 ImGui.SameLine();
-                ImGui.TextColored(Configuration.TripleTriadEnabled ? GradientColor.Get(ImGuiHelper.ExperimentalColor, ImGuiHelper.ExperimentalColor2, 500) : ImGuiHelper.ExperimentalColor, "EXPERIMENTAL");
+                ImGui.TextColored(Configuration.TripleTriadEnabled ? GradientColor.Get(ImGuiHelper.ExperimentalColor, ImGuiHelper.ExperimentalColor2, 500) : ImGuiHelper.ExperimentalColor, "实验性功能");
                 if (Configuration.TripleTriadEnabled)
                 {
                     ImGui.Indent();
-                    if (ImGui.Checkbox("Register Triple Triad Cards", ref Configuration.TripleTriadRegister))
+                    if (ImGui.Checkbox("使用幻卡", ref Configuration.TripleTriadRegister))
                         Configuration.Save();
-                    if (ImGui.Checkbox("Sell Triple Triad Cards", ref Configuration.TripleTriadSell))
+                    if (ImGui.Checkbox("出售幻卡", ref Configuration.TripleTriadSell))
                         Configuration.Save();
                     ImGui.Unindent();
                 }
@@ -2042,7 +2042,7 @@ public static class ConfigTab
                     Configuration.Save();
 
                 ImGuiComponents.HelpMarker("当满足这些条件时，循环将停止");
-                if (ImGui.Checkbox("道具到达指定数量时停止", ref Configuration.StopItemQty))
+                if (ImGui.Checkbox("物品到达指定数量时停止", ref Configuration.StopItemQty))
                     Configuration.Save();
 
                 ImGuiComponents.HelpMarker("当满足这些条件时，循环将停止");
@@ -2110,12 +2110,12 @@ public static class ConfigTab
                 ImGui.Text("在完成所有循环后： ");
                 ImGui.SameLine(0, 10);
                 ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X);
-                if (ImGui.BeginCombo("##ConfigTerminationMethod", Configuration.TerminationMethodEnum.ToCustomString()))
+                if (ImGui.BeginCombo("##ConfigTerminationMethod", Configuration.TerminationMethodEnum.GetDescription()))
                 {
                     foreach (TerminationMode terminationMode in Enum.GetValues(typeof(TerminationMode)))
                     {
                         if (terminationMode != TerminationMode.Kill_PC || OperatingSystem.IsWindows() || OperatingSystem.IsLinux())
-                            if (ImGui.Selectable(terminationMode.ToCustomString()))
+                            if (ImGui.Selectable(terminationMode.GetDescription()))
                             {
                                 Configuration.TerminationMethodEnum = terminationMode;
                                 Configuration.Save();
