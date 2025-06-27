@@ -793,7 +793,7 @@ public static class ConfigTab
                 else
                     ConfigurationMain.Instance.SetProfileAsDefault();
         if (ImGui.IsMouseHoveringRect(ImGui.GetItemRectMin(), ImGui.GetItemRectMax()))
-            ImGui.SetTooltip("Make Default\nHold ctrl to make default for the current character\nctrl+shift to remove it as default for the current character");
+            ImGui.SetTooltip("设为默认\n按住 Ctrl 键设为当前角色的默认值\nCtrl+Shift 组合键取消当前角色的默认设置");
 
 
         ImGui.SameLine();
@@ -1246,7 +1246,7 @@ public static class ConfigTab
                 if (ImGui.Checkbox("仅开启BOSS宝箱", ref Configuration.LootBossTreasureOnly))
                         Configuration.Save();
 
-                ImGuiComponents.HelpMarker("AutoDuty will walk around non-boss chests, and only loot boss chests.\nNot all paths may accomodate.");
+                ImGuiComponents.HelpMarker("AutoDuty将绕过非BOSS宝箱，仅开启BOSS宝箱。\n部分路径可能无法适配。");
                 ImGui.PopItemWidth();
                 ImGui.Unindent();
             }
@@ -1838,7 +1838,7 @@ public static class ConfigTab
                     ImGui.SameLine();
                     ImGui.Text("Get @ ");
                     ImGui.SameLine(0, 0);
-                    ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://plugins.carvel.li");
+                    ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://puni.sh/api/repository/vera");
                 }
 
 
@@ -1853,7 +1853,7 @@ public static class ConfigTab
                 //ImGui.SameLine(0, 5);
                 using (ImRaii.Disabled(!Deliveroo_IPCSubscriber.IsEnabled))
                 {
-                    if (ImGui.Checkbox("自动兑换军票", ref Configuration.autoGCTurnin))
+                    if (ImGui.Checkbox("自动筹备稀有品", ref Configuration.autoGCTurnin))
                     {
                         Configuration.AutoGCTurnin = Configuration.autoGCTurnin;
                         Configuration.Save();
@@ -1936,7 +1936,7 @@ public static class ConfigTab
                         Configuration.AutoGCTurnin = false;
                         Configuration.Save();
                     }
-                    ImGui.Text("* 自动军票上交需要 Deliveroo 插件");
+                    ImGui.Text("* 自动筹备稀有品需要 Deliveroo 插件");
                     ImGui.Text("获取 @ ");
                     ImGui.SameLine(0, 0);
                     ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://raw.githubusercontent.com/RedAsteroid/DalamudPlugins/main/pluginmaster.json");
@@ -1985,10 +1985,11 @@ public static class ConfigTab
                         Configuration.EnableAutoRetainer = false;
                         Configuration.Save();
                     }
-                    ImGui.Text("* AutoRetainer需要一个插件");
-                    ImGui.Text("访问 ");
+                    ImGui.Text("* 此功能需要插件AutoRetainer");
+                    ImGui.Text("如果本插件你使用的是正确的仓库，那你应该能够直接在插件管理器里搜索到AR");
+                    ImGui.Text("否则，请添加: ");
                     ImGui.SameLine(0, 0);
-                    ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://puni.sh/plugin/AutoRetainer");
+                    ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://raw.githubusercontent.com/Ookura-Risona/DalamudPlugins/main/pluginmaster.json");
                 }
             }
         }
