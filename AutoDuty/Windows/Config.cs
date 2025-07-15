@@ -479,7 +479,7 @@ public class Configuration
     public bool                                       AutoEquipRecommendedGearGearsetter;
     public bool                                       AutoEquipRecommendedGearGearsetterOldToInventory;
     public bool                                       AutoRepair              = false;
-    public int                                        AutoRepairPct           = 50;
+    public uint                                       AutoRepairPct           = 50;
     public bool                                       AutoRepairSelf          = false;
     public RepairNpcData?                             PreferredRepairNPC      = null;
     public bool                                       AutoConsume             = false;
@@ -886,7 +886,7 @@ public static class ConfigTab
                     if (ImGui.Checkbox("装备箱", ref Configuration.CofferButton))
                         Configuration.Save();
                     ImGui.NextColumn();
-                    if (ImGui.Checkbox("Triple Triad##TTButton", ref Configuration.TTButton))
+                    if (ImGui.Checkbox("九宫幻卡##TTButton", ref Configuration.TTButton))
                         Configuration.Save();
                     ImGui.Unindent();
                 }
@@ -1527,9 +1527,10 @@ public static class ConfigTab
                     ImGui.Text("修理阈值 @");
                     ImGui.SameLine();
                     ImGui.PushItemWidth(ImGui.GetContentRegionAvail().X);
-                    if (ImGui.SliderInt("##Repair@", ref Configuration.AutoRepairPct, 0, 99, "%d%%"))
+                    int autoRepairPct = (int)Configuration.AutoRepairPct;
+                    if (ImGui.SliderInt("##Repair@", ref autoRepairPct, 0, 99, "%d%%"))
                     {
-                        Configuration.AutoRepairPct = Math.Clamp(Configuration.AutoRepairPct, 0, 99);
+                        Configuration.AutoRepairPct = Math.Clamp((uint)autoRepairPct, 0, 99);
                         Configuration.Save();
                     }
 
@@ -1851,7 +1852,7 @@ public static class ConfigTab
                 }
                 ImGui.NextColumn();
                 //ImGui.SameLine(0, 5);
-                using (ImRaii.Disabled(!Deliveroo_IPCSubscriber.IsEnabled))
+                using (ImRaii.Disabled(!AutoRetainer_IPCSubscriber.IsEnabled))
                 {
                     if (ImGui.Checkbox("自动筹备稀有品", ref Configuration.autoGCTurnin))
                     {
@@ -1929,17 +1930,17 @@ public static class ConfigTab
                 }
                 ImGui.Columns(1);
 
-                if (!Deliveroo_IPCSubscriber.IsEnabled)
+                if (!AutoRetainer_IPCSubscriber.IsEnabled)
                 {
                     if (Configuration.AutoGCTurnin)
                     {
                         Configuration.AutoGCTurnin = false;
                         Configuration.Save();
                     }
-                    ImGui.Text("* 自动筹备稀有品需要 Deliveroo 插件");
+                    ImGui.Text("* 自动筹备稀有品需要 AutoRetainer 插件");
                     ImGui.Text("获取 @ ");
                     ImGui.SameLine(0, 0);
-                    ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://raw.githubusercontent.com/RedAsteroid/DalamudPlugins/main/pluginmaster.json");
+                    ImGuiEx.TextCopy(ImGuiHelper.LinkColor, @"https://raw.githubusercontent.com/Ookura-Risona/DalamudPlugins/main/pluginmaster.json");
                 }
 
                 if(ImGui.Checkbox("九宫幻卡", ref Configuration.TripleTriadEnabled))

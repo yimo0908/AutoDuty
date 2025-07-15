@@ -191,15 +191,15 @@ public class MainWindow : Window, IDisposable
                     {
                         if (ImGui.Button("军票"))
                         {
-                            if (Deliveroo_IPCSubscriber.IsEnabled)
+                            if (AutoRetainer_IPCSubscriber.IsEnabled)
                                 GCTurninHelper.Invoke();
                             else
-                                ShowPopup("缺少插件", "军队筹备需要 Deliveroo 插件。获取 @ https://raw.githubusercontent.com/RedAsteroid/DalamudPlugins/main/pluginmaster.json");
+                                ShowPopup("缺少插件", "军队筹备需要 AutoRetainer 插件。获取 @ https://raw.githubusercontent.com/Ookura-Risona/DalamudPlugins/main/pluginmaster.json");
                         }
-                        if (Deliveroo_IPCSubscriber.IsEnabled)
-                            ToolTip("点击前往调用Deliveroo进行军队筹备");
+                        if (AutoRetainer_IPCSubscriber.IsEnabled)
+                            ToolTip("点击前往调用AutoRetainer进行军队筹备");
                         else
-                            ToolTip("军队筹备需要 Deliveroo 插件。获取 @ https://raw.githubusercontent.com/RedAsteroid/DalamudPlugins/main/pluginmaster.json");
+                            ToolTip("军队筹备需要 AutoRetainer 插件。获取 @ https://raw.githubusercontent.com/Ookura-Risona/DalamudPlugins/main/pluginmaster.json");
                     }
                 }
             }

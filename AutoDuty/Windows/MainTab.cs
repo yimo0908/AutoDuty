@@ -306,7 +306,7 @@ namespace AutoDuty.Windows
 
                         if (Plugin.Configuration.DutyModeEnum == DutyMode.Support && levelingMode == LevelingMode.Support)
                         {
-                            if(ImGui.Checkbox("亲信战友等级足够时优先使用亲信", ref Plugin.Configuration.PreferTrustOverSupportLeveling))
+                            if(ImGui.Checkbox("到达等级后切换为亲信战友", ref Plugin.Configuration.PreferTrustOverSupportLeveling))
                                 Plugin.Configuration.Save();
                         }
 
