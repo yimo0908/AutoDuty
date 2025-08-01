@@ -1363,7 +1363,7 @@ public static class ConfigTab
                 ImGui.Separator();
 
                 ImGui.TextColored(ImGuiHelper.VersionColor,
-                                  $"The following are also done between loop, if Between Loop is enabled (currently {(Configuration.EnableBetweenLoopActions ? "enabled" : "disabled")})");
+                                  $"如果启用了循环间设置，以下内容也会在每次循环之间执行 (当前{(Configuration.EnableBetweenLoopActions ? "启用" : "禁用")})");
 
                 if (ImGui.Checkbox("返回至", ref Configuration.RetireMode))
                     Configuration.Save();

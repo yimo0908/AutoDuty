@@ -158,7 +158,10 @@ namespace AutoDuty.Data
             [Description("关闭游戏")]
             Kill_Client = 3,
             [Description("关闭电脑")]
-            Kill_PC = 4
+            Kill_PC = 4,
+            [Description("开启AR夜间模式")]
+            Start_AR_Night_Mode = 5
+            
         }
         public enum Role : int
         {
