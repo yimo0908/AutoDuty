@@ -1,0 +1,52 @@
+name: Build
+
+
+on:
+  workflow_dispatch:
+
+env:
+  PUBLIC_NAME: AutoDuty
+  SOLUTION_NAME: AutoDuty
+  INTERNAL_NAME: AutoDuty
+  RELEASE_DIR: AutoDuty\bin\x64\Release\AutoDuty
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
+
+      - name: Download Dalamud
+        run: |
+          $branch_name = '${{ steps.extract_branch.outputs.branch_name }}'
+
+          if ($branch_name -eq 'master') {
+            $url = 'https://goatcorp.github.io/dalamud-distrib/latest.zip'
+          } else {
+            $url = "https://goatcorp.github.io/dalamud-distrib/$branch_name/latest.zip"
+          }
+          
+          Invoke-WebRequest -Uri $url -OutFile latest.zip
+          Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev\"
+
+      - name: Build
+        run: |
+          dotnet restore -r win ${{ env.SOLUTION_NAME }}.sln
+          dotnet build --configuration Release
+
+      - name: Test
+        run: |
+          dotnet test --no-restore --verbosity normal
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PluginRepoZip
+          path: ${{ env.RELEASE_DIR }}
+          if-no-files-found: error
