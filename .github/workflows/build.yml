@@ -25,16 +25,11 @@ jobs:
 
       - name: Download Dalamud
         run: |
-          $branch_name = '${{ steps.extract_branch.outputs.branch_name }}'
+          $url = 'https://github.com/ottercorp/dalamud-distrib/raw/refs/heads/main/stg/latest.zip'
 
-          if ($branch_name -eq 'master') {
-            $url = 'https://goatcorp.github.io/dalamud-distrib/latest.zip'
-          } else {
-            $url = "https://goatcorp.github.io/dalamud-distrib/$branch_name/latest.zip"
-          }
           
           Invoke-WebRequest -Uri $url -OutFile latest.zip
-          Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev\"
+          Expand-Archive -Force latest.zip "$env:AppData\XIVLauncherCN\addon\Hooks\dev\"
 
       - name: Build
         run: |
